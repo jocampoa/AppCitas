@@ -5,6 +5,7 @@
     using Xamarin.Forms;
     using Views;
     using Services;
+    using Helpers;
 
     public class LoginViewModel : BaseViewModel
     {
@@ -77,18 +78,18 @@
             if (string.IsNullOrEmpty(this.Email))
             {
                 await Application.Current.MainPage.DisplayAlert(
-                    "error",
-                    "EmailValidation",
-                    "Accept");
+                    Languages.Error,
+                    Languages.EmailValidation,
+                    Languages.Accept);
                 return;
             }
 
             if (string.IsNullOrEmpty(this.Password))
             {
                 await Application.Current.MainPage.DisplayAlert(
-                    "error",
-                    "EmailValidation",
-                    "Accept");
+                    Languages.Error,
+                    Languages.PasswordValidation,
+                    Languages.Accept);
                 return;
             }
 

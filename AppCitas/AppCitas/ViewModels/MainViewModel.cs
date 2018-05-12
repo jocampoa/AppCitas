@@ -1,6 +1,7 @@
 ﻿namespace AppCitas.ViewModels
 {
     using Models;
+    using Helpers;
     using System.Collections.ObjectModel;
 
     public class MainViewModel : BaseViewModel
@@ -72,8 +73,7 @@
             {
                 Icon = "ic_settings",
                 PageName = "MyProfilePage",
-                //Title = Languages.MyProfile,
-                Title = "MyProfile",
+                Title = Languages.MyProfile,
             });
 
             this.Menus.Add(new MenuItemViewModel
@@ -88,8 +88,7 @@
             {
                 Icon = "ic_exit_to_app",
                 PageName = "LoginPage",
-                //Title = Languages.LogOut,
-                Title = "LogOut"
+                Title = Languages.LogOut,
             });
         }
         #endregion
