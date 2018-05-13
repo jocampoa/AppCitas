@@ -2,6 +2,12 @@
 {
     using Xamarin.Forms;
     using Views;
+    using ViewModels;
+    using Helpers;
+    using Models;
+    using Services;
+    using System;
+    using System.Threading.Tasks;
 
     public partial class App : Application
 	{
@@ -15,7 +21,29 @@
         {
             InitializeComponent();
 
-            this.MainPage = new NavigationPage(new LoginPage());
+            if (Settings.IsRemembered == "true")
+            {
+                var dataService = new DataService();
+                //var token = dataService.First<TokenResponse>(false);
+
+                //if (token != null && token.Expires > DateTime.Now)
+                //{
+                //    var user = dataService.First<UserLocal>(false);
+                //    var mainViewModel = MainViewModel.GetInstance();
+                //    mainViewModel.Token = token;
+                //    mainViewModel.User = user;
+                //    mainViewModel.Citas = new CitasViewModel();
+                //    Application.Current.MainPage = new MasterPage();
+                //}
+                //else
+                //{
+                    this.MainPage = new NavigationPage(new LoginPage());
+                //}
+            }
+            else
+            {
+                this.MainPage = new NavigationPage(new LoginPage());
+            }
         }
         #endregion
 

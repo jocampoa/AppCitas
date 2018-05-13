@@ -11,7 +11,7 @@
     {
         #region Services
         private ApiService apiService;
-        //private DataService dataService;
+        private DataService dataService;
         #endregion
 
         #region Attributes
@@ -57,7 +57,7 @@
         public LoginViewModel()
         {
             this.apiService = new ApiService();
-            //this.dataService = new DataService();
+            this.dataService = new DataService();
 
             this.IsRemembered = true;
             this.IsEnabled = true;
@@ -96,59 +96,59 @@
             this.IsRunning = true;
             this.IsEnabled = false;
 
-            if(this.Email != "juan@gmail.com" || this.Password != "123456")
+            //if(this.Email != "juan@gmail.com" || this.Password != "123456")
+            //{
+            //    this.IsRunning = false;
+            //    this.IsEnabled = true;
+            //    await Application.Current.MainPage.DisplayAlert(
+            //        "error",
+            //        "EmailValidation",
+            //        "Accept");
+            //    this.Password = string.Empty;
+            //    return;
+            //}
+
+            var connection = await this.apiService.CheckConnection();
+
+            if (!connection.IsSuccess)
             {
                 this.IsRunning = false;
                 this.IsEnabled = true;
                 await Application.Current.MainPage.DisplayAlert(
-                    "error",
-                    "EmailValidation",
-                    "Accept");
-                this.Password = string.Empty;
+                    Languages.Error,
+                    connection.Message,
+                    Languages.Accept);
                 return;
             }
 
-            //var connection = await this.apiService.CheckConnection();
+            var apiSecurity = Application.Current.Resources["APISecurity"].ToString();
+            var token = await this.apiService.GetToken(
+                apiSecurity,
+                this.Email,
+                this.Password);
 
-            //if (!connection.IsSuccess)
-            //{
-            //    this.IsRunning = false;
-            //    this.IsEnabled = true;
-            //    await Application.Current.MainPage.DisplayAlert(
-            //        "Error", //Languages.Error,
-            //        connection.Message,
-            //         "Accept"); //Languages.Accept);
-            //    return;
-            //}
+            if (token == null)
+            {
+                this.IsRunning = false;
+                this.IsEnabled = true;
+                await Application.Current.MainPage.DisplayAlert(
+                    Languages.Error,
+                    Languages.SomethingWrong,
+                    Languages.Accept);
+                return;
+            }
 
-            //var apiSecurity = Application.Current.Resources["APISecurity"].ToString();
-            //var token = await this.apiService.GetToken(
-            //    apiSecurity,
-            //    this.Email,
-            //    this.Password);
-
-            //if (token == null)
-            //{
-            //    this.IsRunning = false;
-            //    this.IsEnabled = true;
-            //    await Application.Current.MainPage.DisplayAlert(
-            //        "Error", //Languages.Error,
-            //        "SomethingWrong", //Languages.SomethingWrong,
-            //        "Accept"); //Languages.Accept);
-            //    return;
-            //}
-
-            //if (string.IsNullOrEmpty(token.AccessToken))
-            //{
-            //    this.IsRunning = false;
-            //    this.IsEnabled = true;
-            //    await Application.Current.MainPage.DisplayAlert(
-            //        "Error", //Languages.Error,
-            //        "LoginError", //Languages.LoginError,
-            //        "Accept"); //Languages.Accept);
-            //    this.Password = string.Empty;
-            //    return;
-            //}
+            if (string.IsNullOrEmpty(token.AccessToken))
+            {
+                this.IsRunning = false;
+                this.IsEnabled = true;
+                await Application.Current.MainPage.DisplayAlert(
+                    Languages.Error,
+                    Languages.PasswordError,
+                    Languages.Accept);
+                this.Password = string.Empty;
+                return;
+            }
 
             //var user = await this.apiService.GetUserByEmail(
             //    apiSecurity,
@@ -162,17 +162,17 @@
             //userLocal.Password = this.Password;
 
             var mainViewModel = MainViewModel.GetInstance();
-            //mainViewModel.Token = token;
+            mainViewModel.Token = token;
             //mainViewModel.User = userLocal;
 
-            //if (this.IsRemembered)
-            //{
-            //    Settings.IsRemembered = "true";
-            //}
-            //else
-            //{
-            //    Settings.IsRemembered = "false";
-            //}
+            if (this.IsRemembered)
+            {
+                Settings.IsRemembered = "true";
+            }
+            else
+            {
+                Settings.IsRemembered = "false";
+            }
 
             //this.dataService.DeleteAllAndInsert(userLocal);
             //this.dataService.DeleteAllAndInsert(token);
@@ -187,19 +187,19 @@
             this.Password = string.Empty;
         }
 
-        //public ICommand RegisterCommand
-        //{
-        //    get
-        //    {
-        //        return new RelayCommand(Register);
-        //    }
-        //}
+        public ICommand RegisterCommand
+        {
+            get
+            {
+                return new RelayCommand(Register);
+            }
+        }
 
-        //private async void Register()
-        //{
-        //    MainViewModel.GetInstance().Register = new RegisterViewModel();
-        //    await Application.Current.MainPage.Navigation.PushAsync(new RegisterPage());
-        //}
+        private async void Register()
+        {
+            MainViewModel.GetInstance().Register = new RegisterViewModel();
+            await Application.Current.MainPage.Navigation.PushAsync(new RegisterPage());
+        }
         #endregion
 
     }

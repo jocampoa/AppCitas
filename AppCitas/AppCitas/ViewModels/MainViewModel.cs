@@ -6,6 +6,9 @@
 
     public class MainViewModel : BaseViewModel
     {
+        #region Attibrutes
+       // private UserLocal user;
+        #endregion
 
         #region Properties
         public TokenResponse Token
@@ -19,6 +22,12 @@
             get;
             set;
         }
+
+        //public UserLocal User
+        //{
+        //    get { return this.user; }
+        //    set { SetValue(ref this.user, value); }
+        //}
         #endregion
 
         #region ViewModels
@@ -33,6 +42,13 @@
             get;
             set;
         }
+
+        public RegisterViewModel Register
+        {
+            get;
+            set;
+        }
+
         public MyProfileViewModel MyProfile
         {
             get;
