@@ -1,4 +1,4 @@
-﻿namespace AppCitas.Models
+﻿namespace AppCitas.Domain
 {
     public class Response
     {

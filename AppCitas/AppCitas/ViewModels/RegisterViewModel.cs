@@ -1,7 +1,7 @@
 ﻿namespace AppCitas.ViewModels
 {
     using System.Windows.Input;
-    //using Domain;
+    using Domain;
     using GalaSoft.MvvmLight.Command;
     using Helpers;
     using Plugin.Media;
@@ -204,34 +204,34 @@
                 imageArray = FilesHelper.ReadFully(this.file.GetStream());
             }
 
-            //var user = new User
-            //{
-            //    Email = this.Email,
-            //    FirstName = this.FirstName,
-            //    LastName = this.LastName,
-            //    Telephone = this.Telephone,
-            //    ImageArray = imageArray,
-            //    UserTypeId = 1,
-            //    Password = this.Password,
-            //};
+            var user = new User
+            {
+                Email = this.Email,
+                FirstName = this.FirstName,
+                LastName = this.LastName,
+                Telephone = this.Telephone,
+                ImageArray = imageArray,
+                UserTypeId = 1,
+                Password = this.Password,
+            };
 
-            //var apiSecurity = Application.Current.Resources["APISecurity"].ToString();
-            //var response = await this.apiService.Post(
-            //    apiSecurity,
-            //    "/api",
-            //    "/Users",
-            //    user);
+            var apiSecurity = Application.Current.Resources["APISecurity"].ToString();
+            var response = await this.apiService.Post(
+                apiSecurity,
+                "/api",
+                "/Users",
+                user);
 
-            //if (!response.IsSuccess)
-            //{
-            //    this.IsRunning = false;
-            //    this.IsEnabled = true;
-            //    await Application.Current.MainPage.DisplayAlert(
-            //        Languages.Error,
-            //        response.Message,
-            //        Languages.Accept);
-            //    return;
-            //}
+            if (!response.IsSuccess)
+            {
+                this.IsRunning = false;
+                this.IsEnabled = true;
+                await Application.Current.MainPage.DisplayAlert(
+                    Languages.Error,
+                    response.Message,
+                    Languages.Accept);
+                return;
+            }
 
             this.IsRunning = false;
             this.IsEnabled = true;

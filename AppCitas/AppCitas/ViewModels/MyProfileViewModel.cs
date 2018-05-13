@@ -213,38 +213,38 @@
                 imageArray = FilesHelper.ReadFully(this.file.GetStream());
             }
 
-            //var userDomain = Converter.ToUserDomain(this.User, imageArray);
+            var userDomain = Converter.ToUserDomain(this.User, imageArray);
             var apiSecurity = Application.Current.Resources["APISecurity"].ToString();
-            //var response = await this.apiService.Put(
-            //    apiSecurity,
-            //    "/api",
-            //    "/Users",
-            //    MainViewModel.GetInstance().Token.TokenType,
-            //    MainViewModel.GetInstance().Token.AccessToken,
-            //    userDomain);
+            var response = await this.apiService.Put(
+                apiSecurity,
+                "/api",
+                "/Users",
+                MainViewModel.GetInstance().Token.TokenType,
+                MainViewModel.GetInstance().Token.AccessToken,
+                userDomain);
 
-            //if (!response.IsSuccess)
-            //{
-            //    this.IsRunning = false;
-            //    this.IsEnabled = true;
-            //    await Application.Current.MainPage.DisplayAlert(
-            //        Languages.Error,
-            //        response.Message,
-            //        Languages.Accept);
-            //    return;
-            //}
+            if (!response.IsSuccess)
+            {
+                this.IsRunning = false;
+                this.IsEnabled = true;
+                await Application.Current.MainPage.DisplayAlert(
+                    Languages.Error,
+                    response.Message,
+                    Languages.Accept);
+                return;
+            }
 
-            //var userApi = await this.apiService.GetUserByEmail(
-            //    apiSecurity,
-            //    "/api",
-            //    "/Users/GetUserByEmail",
-            //    MainViewModel.GetInstance().Token.TokenType,
-            //    MainViewModel.GetInstance().Token.AccessToken,
-            //    this.User.Email);
-            //var userLocal = Converter.ToUserLocal(userApi);
+            var userApi = await this.apiService.GetUserByEmail(
+                apiSecurity,
+                "/api",
+                "/Users/GetUserByEmail",
+                MainViewModel.GetInstance().Token.TokenType,
+                MainViewModel.GetInstance().Token.AccessToken,
+                this.User.Email);
+            var userLocal = Converter.ToUserLocal(userApi);
 
-            //MainViewModel.GetInstance().User = userLocal;
-            //this.dataService.Update(userLocal);
+            MainViewModel.GetInstance().User = userLocal;
+            this.dataService.Update(userLocal);
 
             this.IsRunning = false;
             this.IsEnabled = true;

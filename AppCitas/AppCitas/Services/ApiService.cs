@@ -6,7 +6,7 @@
     using System.Net.Http.Headers;
     using System.Text;
     using System.Threading.Tasks;
-    //using Domain;
+    using Domain;
     using Helpers;
     using Models;
     using Newtonsoft.Json;
@@ -433,46 +433,46 @@
             }
         }
 
-        //public async Task<User> GetUserByEmail(
-        //    string urlBase,
-        //    string servicePrefix,
-        //    string controller,
-        //    string tokenType,
-        //    string accessToken,
-        //    string email)
-        //{
-        //    try
-        //    {
-        //        var model = new UserRequest
-        //        {
-        //            Email = email,
-        //        };
+        public async Task<User> GetUserByEmail(
+            string urlBase,
+            string servicePrefix,
+            string controller,
+            string tokenType,
+            string accessToken,
+            string email)
+        {
+            try
+            {
+                var model = new UserRequest
+                {
+                    Email = email,
+                };
 
-        //        var request = JsonConvert.SerializeObject(model);
-        //        var content = new StringContent(
-        //            request,
-        //            Encoding.UTF8,
-        //            "application/json");
-        //        var client = new HttpClient();
-        //        client.DefaultRequestHeaders.Authorization =
-        //            new AuthenticationHeaderValue(tokenType, accessToken);
-        //        client.BaseAddress = new Uri(urlBase);
-        //        var url = string.Format("{0}{1}", servicePrefix, controller);
-        //        var response = await client.PostAsync(url, content);
+                var request = JsonConvert.SerializeObject(model);
+                var content = new StringContent(
+                    request,
+                    Encoding.UTF8,
+                    "application/json");
+                var client = new HttpClient();
+                client.DefaultRequestHeaders.Authorization =
+                    new AuthenticationHeaderValue(tokenType, accessToken);
+                client.BaseAddress = new Uri(urlBase);
+                var url = string.Format("{0}{1}", servicePrefix, controller);
+                var response = await client.PostAsync(url, content);
 
-        //        if (!response.IsSuccessStatusCode)
-        //        {
-        //            return null;
-        //        }
+                if (!response.IsSuccessStatusCode)
+                {
+                    return null;
+                }
 
-        //        var result = await response.Content.ReadAsStringAsync();
-        //        return JsonConvert.DeserializeObject<User>(result);
-        //    }
-        //    catch
-        //    {
-        //        return null;
-        //    }
-        //}
+                var result = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<User>(result);
+            }
+            catch
+            {
+                return null;
+            }
+        }
 
         public async Task<Response> Put<T>(
             string urlBase,

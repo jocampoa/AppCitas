@@ -138,20 +138,20 @@
                 return;
             }
 
-            //var user = await this.apiService.GetUserByEmail(
-            //    apiSecurity,
-            //    "/api",
-            //    "/Users/GetUserByEmail",
-            //    token.TokenType,
-            //    token.AccessToken,
-            //    this.Email);
+            var user = await this.apiService.GetUserByEmail(
+                apiSecurity,
+                "/api",
+                "/Users/GetUserByEmail",
+                token.TokenType,
+                token.AccessToken,
+                this.Email);
 
-            //var userLocal = Converter.ToUserLocal(user);
-            //userLocal.Password = this.Password;
+            var userLocal = Converter.ToUserLocal(user);
+            userLocal.Password = this.Password;
 
             var mainViewModel = MainViewModel.GetInstance();
             mainViewModel.Token = token;
-            //mainViewModel.User = userLocal;
+            mainViewModel.User = userLocal;
 
             if (this.IsRemembered)
             {
@@ -162,7 +162,7 @@
                 Settings.IsRemembered = "false";
             }
 
-            //this.dataService.DeleteAllAndInsert(userLocal);
+            this.dataService.DeleteAllAndInsert(userLocal);
             this.dataService.DeleteAllAndInsert(token);
 
             mainViewModel.Citas = new CitasViewModel();
