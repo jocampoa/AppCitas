@@ -8,7 +8,7 @@
     {
         #region Properties
         //[PrimaryKey, AutoIncrement]
-        //public int TokenResponseId { get; set; }
+        public int TokenResponseId { get; set; }
 
         [JsonProperty(PropertyName = "access_token")]
         public string AccessToken { get; set; }
@@ -32,11 +32,11 @@
         public string ErrorDescription { get; set; }
         #endregion
 
-        //#region Methods
-        //public override int GetHashCode()
-        //{
-        //    return TokenResponseId;
-        //}
-        //#endregion
+        #region Methods
+        public override int GetHashCode()
+        {
+            return TokenResponseId;
+        }
+        #endregion
     }
 }
