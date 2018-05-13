@@ -34,7 +34,7 @@
                 Settings.IsRemembered = "false";
                 var mainViewModel = MainViewModel.GetInstance();
                 mainViewModel.Token = null;
-                //mainViewModel.User = null;
+                mainViewModel.User = null;
                 Application.Current.MainPage = new NavigationPage(
                     new LoginPage());
             }

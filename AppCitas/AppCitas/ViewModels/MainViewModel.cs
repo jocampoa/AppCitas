@@ -7,7 +7,7 @@
     public class MainViewModel : BaseViewModel
     {
         #region Attibrutes
-       // private UserLocal user;
+        private UserLocal user;
         #endregion
 
         #region Properties
@@ -23,11 +23,11 @@
             set;
         }
 
-        //public UserLocal User
-        //{
-        //    get { return this.user; }
-        //    set { SetValue(ref this.user, value); }
-        //}
+        public UserLocal User
+        {
+            get { return this.user; }
+            set { SetValue(ref this.user, value); }
+        }
         #endregion
 
         #region ViewModels
@@ -50,6 +50,12 @@
         }
 
         public MyProfileViewModel MyProfile
+        {
+            get;
+            set;
+        }
+
+        public ChangePasswordViewModel ChangePassword
         {
             get;
             set;

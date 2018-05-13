@@ -96,18 +96,6 @@
             this.IsRunning = true;
             this.IsEnabled = false;
 
-            //if(this.Email != "juan@gmail.com" || this.Password != "123456")
-            //{
-            //    this.IsRunning = false;
-            //    this.IsEnabled = true;
-            //    await Application.Current.MainPage.DisplayAlert(
-            //        "error",
-            //        "EmailValidation",
-            //        "Accept");
-            //    this.Password = string.Empty;
-            //    return;
-            //}
-
             var connection = await this.apiService.CheckConnection();
 
             if (!connection.IsSuccess)
@@ -175,7 +163,7 @@
             }
 
             //this.dataService.DeleteAllAndInsert(userLocal);
-            //this.dataService.DeleteAllAndInsert(token);
+            this.dataService.DeleteAllAndInsert(token);
 
             mainViewModel.Citas = new CitasViewModel();
             Application.Current.MainPage = new MasterPage();
