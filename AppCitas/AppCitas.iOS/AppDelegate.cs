@@ -4,6 +4,7 @@ using System.Linq;
 
 using Foundation;
 using ImageCircle.Forms.Plugin.iOS;
+using Syncfusion.SfCalendar.XForms.iOS;
 using UIKit;
 
 namespace AppCitas.iOS
@@ -24,6 +25,7 @@ namespace AppCitas.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
+            new SfCalendarRenderer();
             ImageCircleRenderer.Init();
             LoadApplication(new App());
 
