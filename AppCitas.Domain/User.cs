@@ -32,7 +32,7 @@
         [Display(Name = "Image")]
         public string ImagePath { get; set; }
 
-        public int UserTypeId { get; set; }
+        public int? UserTypeId { get; set; }
 
         [JsonIgnore]
         public virtual UserType UserType { get; set; }
@@ -54,7 +54,7 @@
                 }
 
                 return string.Format(
-                    "http://landsapi1.azurewebsites.net/{0}",
+                    "http://appcitasapi.azurewebsites.net/{0}",
                     ImagePath.Substring(1));
             }
         }
